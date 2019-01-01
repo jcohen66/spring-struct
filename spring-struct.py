@@ -16,7 +16,7 @@ def main(argv):
     res_folders = {'static', 'templates'}
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("pkg", help="root package")
+    parser.add_argument('pkg', help='root package')
     args = parser.parse_args()
     root_pkg = args.pkg
 
