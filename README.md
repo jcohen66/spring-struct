@@ -19,7 +19,7 @@ Produces Spring packages under the specified root package/path.
     │   │   └── com
     │   │       └── example
     │   │           └── demo
-    │   │               ├── DemoApplication.java
+    │   │               ├── demoApplication.java
     │   │               ├── config
     │   │               ├── controllers
     │   │               ├── model
@@ -34,6 +34,6 @@ Produces Spring packages under the specified root package/path.
             └── com
                 └── example
                     └── demo
-                        └── DemoApplicationTests.java
+                        └── demoApplicationTests.java
                         
 ```` 
