@@ -3,6 +3,7 @@ import os
 import sys
 import argparse
 
+
 def touch_file(fn):
     filehandle = open(fn, 'w')
     filehandle.write('')
@@ -12,7 +13,7 @@ def path_from_package(pkg):
     path = pkg.replace('.', '/')
     return path
 
-def main(argv):
+def main(args=None):
     src_folders = {'controllers', 'model', 'services', 'config', 'repositories'}
     res_folders = {'static', 'templates'}
 
