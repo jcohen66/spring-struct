@@ -1,11 +1,16 @@
 #!/usr/bin/python
+import argparse
 import os
 import sys
-import argparse
 
 
-def touch_file(fn):
-    filehandle = open(fn, 'w')
+##
+##  This app checks if common Spring component placeholders
+##  exist and if not then creates them.
+##
+
+def touch_file(file_name):
+    filehandle = open(file_name, 'w')
     filehandle.write('')
     filehandle.close()
 
@@ -14,6 +19,7 @@ def path_from_package(pkg):
     return path
 
 def main(args=None):
+
     src_folders = {'controllers', 'model', 'services', 'config', 'repositories'}
     res_folders = {'static', 'templates'}
 
@@ -29,44 +35,47 @@ def main(args=None):
 
     path = os.getcwd()
 
+    # Create application folders
     for folder in src_folders:
-        ps = path + '/' + src_root + '/' + folder
-        if not os.path.isdir(ps):
+        component_folder_path = path + '/' + src_root + '/' + folder
+        if not os.path.isdir(component_folder_path):
             try:
-                os.makedirs(ps)
+                os.makedirs(component_folder_path)
             except OSError:
-                print("Creation of the directory %s failed" % ps)
+                print("Creation of the directory %s failed" % component_folder_path)
             else:
-                print("Successfully created the directory %s " % ps)
+                print("Successfully created the directory %s " % component_folder_path)
         else:
-            print("Directory already exists: %s " % ps)
+            print("Directory already exists: %s " % component_folder_path)
 
-        rp = path + '/' + res_root
-        if not os.path.isdir(rp):
+    # Create application.properties file
+    resource_path = path + '/' + res_root
+    if not os.path.isdir(resource_path):
+        try:
+            os.makedirs(resource_path)
+        except OSError:
+            print("Creation of the directory %s failed" % resource_path)
+        else:
+            print("Successfully created the directory %s " % resource_path)
+            property_file = resource_path + '/' + 'application.properties'
+            print(property_file)
+            if not os.path.isfile(property_file):
+                touch_file(property_file)
+    else:
+        print("Directory already exists: %s " % resource_path)
+
+    # Create resource folders
+    for folder in res_folders:
+        resource_folder_path = path + '/' + res_root + '/' + folder
+        if not os.path.isdir(resource_folder_path):
             try:
-                os.makedirs(rp)
+                os.makedirs(resource_folder_path)
             except OSError:
-                print("Creation of the directory %s failed" % rp)
+                print("Creation of the directory %s failed" % resource_folder_path)
             else:
-                print("Successfully created the directory %s " % rp)
-                rpf = rp + '/' + 'application.properties'
-                print(rpf)
-                if not os.path.isfile(rpf):
-                    touch_file(rpf)
+                print("Successfully created the directory %s " % resource_folder_path)
         else:
-            print("Directory already exists: %s " % rp)
-
-        for folder in res_folders:
-            rs = path + '/' + res_root + '/' + folder
-            if not os.path.isdir(rs):
-                try:
-                    os.makedirs(rs)
-                except OSError:
-                    print("Creation of the directory %s failed" % rs)
-                else:
-                    print("Successfully created the directory %s " % rs)
-            else:
-                print("Directory already exists: %s " % rs)
+            print("Directory already exists: %s " % resource_folder_path)
 
 
 if __name__ == '__main__':
